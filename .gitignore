@@ -1,0 +1,20 @@
+# Basic stuff
+/node_modules
+/.idea
+npm-debug.log
+.vscode/
+
+# Mongo
+mongo-backup/
+mongo-data/
+
+# Code coverage
+.nyc_output/
+package-lock.json
+./package-lock.json
+./logs/*.log
+logs/*.log
+./logs/*.err
+logs/*.err
+# Test Files
+scripts/entities-registered-with-acra.csv

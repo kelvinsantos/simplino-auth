@@ -1,0 +1,21 @@
+image: node:10.15.3
+
+pipelines:
+  default:
+    - step:
+        image: node:10.15.3
+        script:
+          - mkdir /app
+          - cp -r . /app/
+          - cd /app/
+          - npm install --build-from-source
+          - npm run test-no-warnings
+        services:
+          - node
+          - database
+definitions:
+  services:
+    node:
+      image: node:boron
+    database:
+      image: mongo:3.4-jessie

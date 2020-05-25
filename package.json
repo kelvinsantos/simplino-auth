@@ -1,0 +1,42 @@
+{
+  "name": "simplino-auth",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "NODE_ENV=${NODE_ENV:-development} node ./bin/www",
+    "start-dev": "NODE_ENV=${NODE_ENV:-development} DEBUG=simplino-auth:* npm start",
+    "test": "npm run eslint && npm run test-only --",
+    "test-no-warnings": "npm run eslint -- --max-warnings 0 && npm run test-only",
+    "test-only": "NODE_ENV=test mocha --recursive --exit tests --timeout 0",
+    "eslint": "eslint --ext=js ."
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "config": "^3.2.4",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "is-html": "^2.0.0",
+    "jade": "~1.11.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^4.11.9",
+    "morgan": "~1.9.1",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^4.6.1",
+    "js-base64": "^2.5.1",
+    "mocha": "^5.2.0",
+    "mock-require": "^2.0.2",
+    "nock": "^9.1.6",
+    "nyc": "^13.1.0",
+    "qs": "^6.5.2",
+    "sinon": "^6.3.5",
+    "supertest": "^3.0.0"
+  }
+}

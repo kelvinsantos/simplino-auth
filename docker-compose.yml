@@ -1,0 +1,61 @@
+version: "2.1"
+services:
+  auth:
+    build: .
+    command: bash -c "npm install && NODE_ENV=${NODE_ENV:-development} npm run start-dev"
+    volumes:
+      - ./:/app/
+      - ./node_modules/:/app/node_modules/
+    ports:
+      - "9090:9090"
+      - "80:80"
+      - "443:443"
+    links:
+      - mongo
+  mongo:
+    image: mongo:3.4-jessie
+    volumes:
+      - ./mongo-data/:/data/db/
+      - ./mongo-backup/:/mongo-backup/
+    ports:
+      - "27017:27017"
+
+  caddy:
+    build:
+      context: .
+      dockerfile: ./docker_compose/caddy/Dockerfile
+    depends_on:
+      - auth
+    volumes:
+      - ./caddy:/root/.caddy # to save certificates on disk
+      - ./docker_compose/caddy/Caddyfile:/etc/Caddyfile  # to mount custom Caddyfile
+    env_file: .env
+    ports:
+      - "80:80"
+      - "443:443"
+
+  remark:
+    image: umputun/docker-logger
+    container_name: "logger"
+    hostname: "logger"
+    restart: always
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+    environment:
+      - LOG_FILES=true
+      - LOG_SYSLOG=false
+      - EXCLUDE=monit,docker-logger
+      - MAX_FILES=10
+      - MAX_SIZE=50
+      - MAX_AGE=20
+      - DEBUG=false
+      - TIME_ZONE=Asia/Singapore
+
+    volumes:
+      - ./logs:/srv/logs
+      - /var/run/docker.sock:/var/run/docker.sock

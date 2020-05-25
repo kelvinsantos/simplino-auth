@@ -1,0 +1,9 @@
+{
+  "server": {
+    "port": 80
+  },
+  "mongo": {
+    "host": "mongo",
+    "databaseName": "simplino_auth"
+  }
+}
