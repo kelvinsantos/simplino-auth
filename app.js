@@ -9,7 +9,7 @@ var mongoose = require("mongoose");
 var config = require("config");
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var userRouter = require('./routes/user');
 var tenantRouter = require("./routes/tenant");
 var authenticatorRouter = require("./routes/authenticator");
 
@@ -51,7 +51,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', userRouter);
 app.use('/tenant', tenantRouter);
 app.use('/authenticator', authenticatorRouter);
 
