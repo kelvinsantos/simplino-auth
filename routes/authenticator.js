@@ -79,8 +79,15 @@ router.post('/verify', function(req, res, next) {
     let _payload = payload;
 
     if (_payload.token == null) {
-      // We can obtain the session token from the requests cookies, which come with every request
-      _payload.token = req.cookies.token;
+      // We can obtain the session token from the header, which come with every request
+      _payload.token = req.get("Authorization");
+    }
+
+    if (_payload.token) {
+      // We can obtain the session token from the header, which come with every request
+      const bearer = _payload.token.split(' ');
+      const token = bearer[1];
+      _payload.token = token;
     }
 
     // if the cookie is not set, return an unauthorized error
@@ -130,7 +137,14 @@ router.post('/refresh', function(req, res, next) {
 
     if (_payload.token == null) {
       // We can obtain the session token from the header, which come with every request
-      _payload.token = req.get("Token");
+      _payload.token = req.get("Authorization");
+    }
+
+    if (_payload.token) {
+      // We can obtain the session token from the header, which come with every request
+      const bearer = _payload.token.split(' ');
+      const token = bearer[1];
+      _payload.token = token;
     }
 
     // if the cookie is not set, return an unauthorized error

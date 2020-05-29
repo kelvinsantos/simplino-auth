@@ -8,8 +8,7 @@ let tenantSchema = new Schema(
     audience: String,
     name: String,
     secret_key: String,
-    owner: { type: mongoose.Schema.ObjectId, ref: "User" },
-    api_base_url: String
+    owner: { type: mongoose.Schema.ObjectId, ref: "User" }
   },
   {
     timestamps: true
